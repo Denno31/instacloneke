@@ -31,7 +31,7 @@ function Home({
     };
   }, []);
   const renderAllPosts = () => {
-    return allPosts === null || loading ? (
+    return allPosts === null || loading || user === null ? (
       <Loading />
     ) : (
       allPosts.map((p, index) => (
