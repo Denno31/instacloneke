@@ -32,7 +32,7 @@ function Home({
   }, []);
   const renderAllPosts = () => {
     console.log(user, "<<<");
-    return allPosts === null || loading || user === null ? (
+    return allPosts === null || loading || user === undefined ? (
       <Loading />
     ) : (
       allPosts.map((p, index) => (
