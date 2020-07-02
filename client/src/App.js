@@ -10,6 +10,7 @@ import Signup from "./components/Signup";
 import CreatePost from "./components/screens/CreatePost";
 import { login, loadLoggedInUser } from "./actions/user";
 import UserProfile from "./components/UserProfile";
+import Loading from "./components/Loading";
 const Routing = () => {
   const history = useHistory();
   useEffect(() => {
@@ -27,6 +28,7 @@ const Routing = () => {
       <Route exact path="/Login" component={Login}></Route>
       <Route exact path="/signup" component={Signup}></Route>
       <Route exact path="/create" component={CreatePost}></Route>
+      <Route exact path="/loading" component={Loading}></Route>
       <Route exact path="/profile/:userid" component={UserProfile}></Route>
     </Switch>
   );

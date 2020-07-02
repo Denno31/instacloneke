@@ -10,10 +10,11 @@ import {
   deletePost,
   deleteComment,
 } from "../actions/profile";
+import Loading from "./Loading";
 import { clearUser } from "../actions/user";
 function Home({
   loadAllPosts,
-  allPosts: { allPosts },
+  allPosts: { allPosts, loading },
   likePost,
   unlikePost,
   makeComment,
@@ -30,8 +31,8 @@ function Home({
     };
   }, []);
   const renderAllPosts = () => {
-    return !allPosts ? (
-      <div>loading</div>
+    return allPosts === null || loading ? (
+      <Loading />
     ) : (
       allPosts.map((p, index) => (
         <div className="card home-card" key={index}>

@@ -9,8 +9,9 @@ import {
 } from "../actions/types";
 const intialState = {
   posts: [],
-  allPosts: [],
+  allPosts: null,
   post: {},
+  loading: true,
 };
 export default function (state = intialState, { type, payload }) {
   switch (type) {
@@ -23,6 +24,7 @@ export default function (state = intialState, { type, payload }) {
       return {
         ...state,
         allPosts: payload,
+        loading: false,
       };
     case LIKE_POST:
     case UNLIKE_POST:
