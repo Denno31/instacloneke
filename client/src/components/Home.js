@@ -31,6 +31,7 @@ function Home({
     };
   }, []);
   const renderAllPosts = () => {
+    console.log(user, "<<<");
     return allPosts === null || loading || user === null ? (
       <Loading />
     ) : (
