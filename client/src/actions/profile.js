@@ -43,7 +43,7 @@ export const loadAllPosts = () => async (dispatch) => {
   }
 };
 export const likePost = (postId) => async (dispatch) => {
-  console.log(postId);
+  
   fetch("/like", {
     method: "put",
     headers: {
@@ -56,7 +56,7 @@ export const likePost = (postId) => async (dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => {
-      console.log(result.result);
+      
       dispatch({
         type: LIKE_POST,
         payload: result.result,
@@ -64,7 +64,7 @@ export const likePost = (postId) => async (dispatch) => {
     });
 };
 export const unlikePost = (postId) => async (dispatch) => {
-  console.log(postId);
+  
   fetch("/unlike", {
     method: "put",
     headers: {
@@ -77,7 +77,7 @@ export const unlikePost = (postId) => async (dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => {
-      console.log(result);
+     
       dispatch({
         type: UNLIKE_POST,
         payload: result.result,

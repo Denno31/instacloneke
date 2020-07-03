@@ -23,6 +23,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userProfile: payload,
+        user:payload
       };
     case LOAD_USER_PROFILE:
       const checkFollow = payload.user.followers.find(
