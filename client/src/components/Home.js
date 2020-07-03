@@ -11,7 +11,7 @@ import {
   deleteComment,
 } from "../actions/profile";
 import Loading from "./Loading";
-import { clearUser } from "../actions/user";
+import { clearUser,loadLoggedInUser } from "../actions/user";
 function Home({
   loadAllPosts,
   allPosts: { allPosts, loading },
@@ -22,17 +22,19 @@ function Home({
   deletePost,
   deleteComment,
   clearUser,
+  loadLoggedInUser
 }) {
   const [comment, setcomment] = useState("");
   useEffect(() => {
     loadAllPosts();
+    loadLoggedInUser()
     return () => {
       clearUser();
     };
   }, []);
   const renderAllPosts = () => {
     console.log(user, "<<<");
-    return allPosts === null || loading || user === undefined ? (
+    return allPosts === null || loading || user===undefined ? (
       <Loading />
     ) : (
       allPosts.map((p, index) => (
@@ -124,4 +126,5 @@ export default connect(mapStateToProps, {
   deletePost,
   deleteComment,
   clearUser,
+  loadLoggedInUser
 })(Home);

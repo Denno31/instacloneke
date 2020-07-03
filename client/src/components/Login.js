@@ -8,30 +8,47 @@ const Login = ({ history, login }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const postData = async () => {
-    try {
-      const result = await fetch("/signin", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+    // try {
+    //   const result = await fetch("/signin", {
+    //     method: "post",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       email,
+    //       password,
+    //     }),
+    //   });
 
-      const res = await result.json();
-      console.log(res);
-      if (res.error) {
-        M.toast({ html: res.error, classes: "#c62828 red darken-3" });
-      } else {
-        M.toast({ html: res.message, classes: "#43a047 green darken-1" });
-        localStorage.setItem("jwt", res.token);
-        localStorage.setItem("user", JSON.stringify(res.user));
-        login(res.user);
-        history.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   const res = await result.json();
+    //   console.log(res);
+    //   if (res.error) {
+    //     M.toast({ html: res.error, classes: "#c62828 red darken-3" });
+    //   } else {
+    //     M.toast({ html: res.message, classes: "#43a047 green darken-1" });
+    //     localStorage.setItem("jwt", res.token);
+    //     localStorage.setItem("user", JSON.stringify(res.user));
+    //     login(res.user);
+    //     history.push("/");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    fetch("/signin",{
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            password,
+          }),}).then(response=>response.json()).then(res=>{
+            if (res.error) {
+                  M.toast({ html: res.error, classes: "#c62828 red darken-3" });
+                } else {
+                  M.toast({ html: res.message, classes: "#43a047 green darken-1" });
+                  localStorage.setItem("jwt", res.token);
+                  localStorage.setItem("user", JSON.stringify(res.user));
+                  login(res.user);
+                  history.push("/");
+                }
+          }).catch(error=>console.log(error))
   };
   return (
     <div className="mycard">
