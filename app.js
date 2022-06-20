@@ -16,7 +16,7 @@ mongoose
     console.log("DB connection successful!");
   })
   .catch((err) => {
-    console.log("an erro occurred:  ", err);
+    console.log("an error occurred:  ", err);
   });
 app.use(express.json());
 app.use(require("./routes/auth"));

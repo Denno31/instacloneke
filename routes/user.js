@@ -18,6 +18,15 @@ router.get("/user/:id", requireLogin, async (req, res) => {
     console.log(error);
   }
 });
+router.get("/users", requireLogin, async (req, res) => {
+  try {
+    const users = await User.find();
+
+    return res.json(users);
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.put("/follow", requireLogin, async (req, res) => {
   try {
     const follower = await User.findByIdAndUpdate(

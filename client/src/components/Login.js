@@ -32,23 +32,27 @@ const Login = ({ history, login }) => {
     // } catch (error) {
     //   console.log(error);
     // }
-    fetch("/signin",{
-          method: "post",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            password,
-          }),}).then(response=>response.json()).then(res=>{
-            if (res.error) {
-                  M.toast({ html: res.error, classes: "#c62828 red darken-3" });
-                } else {
-                  M.toast({ html: res.message, classes: "#43a047 green darken-1" });
-                  localStorage.setItem("jwt", res.token);
-                  localStorage.setItem("user", JSON.stringify(res.user));
-                  login(res.user);
-                  history.push("/");
-                }
-          }).catch(error=>console.log(error))
+    fetch("/signin", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.error) {
+          M.toast({ html: res.error, classes: "#c62828 red darken-3" });
+        } else {
+          M.toast({ html: res.message, classes: "#43a047 green darken-1" });
+          localStorage.setItem("jwt", res.token);
+          localStorage.setItem("user", JSON.stringify(res.user));
+
+          history.push("/");
+        }
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <div className="mycard">

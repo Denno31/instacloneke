@@ -6,7 +6,9 @@ import {
   UNFOLLOW_USER,
 } from "../actions/types";
 const initialState = {
-  user: null,
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null,
   userProfile: null,
   follow: false,
 };
@@ -23,7 +25,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userProfile: payload,
-        user:payload
+        user: payload,
       };
     case LOAD_USER_PROFILE:
       const checkFollow = payload.user.followers.find(

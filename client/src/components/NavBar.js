@@ -41,16 +41,18 @@ function NavBar({ user: { user }, clearUser }) {
     }
   };
   return (
-    <nav>
-      <div className="nav-wrapper white">
-        <Link to={user ? "/" : "/login"} className="brand-logo">
-          InstaClone
-        </Link>
-        <ul id="nav-mobile" className="right">
-          {renderList()}
-        </ul>
-      </div>
-    </nav>
+    <div className="navbar-fixed">
+      <nav>
+        <div className="nav-wrapper white">
+          <Link to={user ? "/" : "/login"} className="brand-logo">
+            InstaClone
+          </Link>
+          <ul id="nav-mobile" className="right">
+            {renderList()}
+          </ul>
+        </div>
+      </nav>
+    </div>
   );
 }
 

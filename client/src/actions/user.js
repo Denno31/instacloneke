@@ -80,6 +80,7 @@ export const loadLoggedInUser = () => (dispatch) => {
     method: "get",
     headers: {
       "Content-Type": "application/json",
+
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   })

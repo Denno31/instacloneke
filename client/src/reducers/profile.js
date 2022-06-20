@@ -21,6 +21,7 @@ export default function (state = intialState, { type, payload }) {
         posts: payload,
       };
     case LOAD_ALL_POSTS:
+      console.log("load posts");
       return {
         ...state,
         allPosts: payload,
