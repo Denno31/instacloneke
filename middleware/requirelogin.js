@@ -11,6 +11,7 @@ module.exports = async (req, res, next) => {
     const { _id } = payload;
     const userData = await User.findById(_id, "-password");
     req.user = userData;
+    // console.log(req.user);
     next();
   } catch (error) {
     res.status(401).json({ error: "you must be logged in" });

@@ -4,6 +4,8 @@ import {
   LOAD_USER_PROFILE,
   FOLLOW_USER,
   UNFOLLOW_USER,
+  FETCH_USERS,
+  FETCH_USERS_REQUEST,
 } from "./types";
 
 export const login = (userData) => (dispatch) => {
@@ -15,6 +17,12 @@ export const login = (userData) => (dispatch) => {
 export const clearUser = () => (dispatch) => {
   dispatch({
     type: CLEAR_USER,
+    payload: null,
+  });
+};
+export const clearUserProfile = () => (dispatch) => {
+  dispatch({
+    type: "CLEAR_USER_PROFILE",
     payload: null,
   });
 };
@@ -86,4 +94,23 @@ export const loadLoggedInUser = () => (dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => dispatch({ type: SIGN_IN, payload: result }));
+};
+
+export const fetchUsers = () => (dispatch) => {
+  dispatch({ type: FETCH_USERS_REQUEST });
+  fetch("/users", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  })
+    .then((data) => data.json())
+    .then((result) => {
+      console.log("fetched users", result);
+      dispatch({ type: FETCH_USERS, payload: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

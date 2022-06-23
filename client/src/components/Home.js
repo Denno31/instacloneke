@@ -11,7 +11,12 @@ import {
   deleteComment,
 } from "../actions/profile";
 import Loading from "./Loading";
-import { clearUser, loadLoggedInUser } from "../actions/user";
+import {
+  clearUser,
+  loadLoggedInUser,
+  fetchUsers,
+  followUser,
+} from "../actions/user";
 function Home({
   loadAllPosts,
   allPosts: { allPosts, loading },
@@ -19,15 +24,19 @@ function Home({
   unlikePost,
   makeComment,
   user: { user },
+  users,
   deletePost,
   deleteComment,
   clearUser,
   loadLoggedInUser,
+  fetchUsers,
+  followUser,
 }) {
   const [comment, setcomment] = useState("");
   useEffect(() => {
     loadAllPosts();
     loadLoggedInUser();
+    fetchUsers();
     // return () => {
     //   clearUser();
     // };
@@ -137,26 +146,45 @@ function Home({
   return (
     <div className="home">
       <div className="feeds">{renderAllPosts()}</div>
-      <div className="right-bar-container">
-        <div className="right-bar">
-          <p>Suggestions for you</p>
-          <div className="suggestions-content">
-            <ul className="collection">
-              <li className="collection-item avatar">
-                <img src="images/yuna.jpg" alt="" className="circle" />
-                <span className="title">Dennis Anyonje</span>
-                <p>
-                  Follows you
-                  <br />
-                </p>
-                <a href="#!" className="secondary-content">
-                  Follow
-                </a>
-              </li>
-            </ul>
+      {!loading && (
+        <div style={{ height: "20px" }} className="right-bar-container">
+          <div className="right-bar">
+            <p>Suggestions for you</p>
+            <div className="suggestions-content">
+              <ul
+                style={{ height: "400px", overflow: "auto" }}
+                className="collection"
+              >
+                {users?.notFollowing?.map((_user) => (
+                  <li key={_user._id} className="collection-item avatar">
+                    <img
+                      src="https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg"
+                      alt=""
+                      className="circle"
+                    />
+                    <Link to={`/profile/${_user._id}`}>
+                      <span className="title">{_user?.name}</span>
+                    </Link>
+                    {_user?.following?.includes(user?._id) && (
+                      <p>
+                        Follows you
+                        <br />
+                      </p>
+                    )}
+
+                    <Link
+                      to={`/profile/${_user._id}`}
+                      className="secondary-content"
+                    >
+                      Follow
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -166,6 +194,7 @@ Home.propTypes = {
 const mapStateToProps = (state) => ({
   allPosts: state.profile,
   user: state.user,
+  users: state.user.users,
 });
 export default connect(mapStateToProps, {
   loadAllPosts,
@@ -176,4 +205,6 @@ export default connect(mapStateToProps, {
   deleteComment,
   clearUser,
   loadLoggedInUser,
+  fetchUsers,
+  followUser,
 })(Home);

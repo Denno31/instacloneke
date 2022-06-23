@@ -8,14 +8,12 @@ const CreatePost = ({ history }) => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const postDetails = async () => {
-    console.log("clicked");
     setLoading(true);
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "instaclone");
     data.append("cloud_name", "dm7tddlog");
     try {
-      console.log("in try catch block");
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/dm7tddlog/image/upload",
         {

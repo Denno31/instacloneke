@@ -4,6 +4,7 @@ import {
   LOAD_USER_PROFILE,
   FOLLOW_USER,
   UNFOLLOW_USER,
+  FETCH_USERS,
 } from "../actions/types";
 const initialState = {
   user: localStorage.getItem("user")
@@ -11,6 +12,7 @@ const initialState = {
     : null,
   userProfile: null,
   follow: false,
+  users: [],
 };
 
 export default function (state = initialState, action) {
@@ -78,7 +80,11 @@ export default function (state = initialState, action) {
         follow: false,
         user: payload.following,
       };
+    case FETCH_USERS:
+      return { ...state, users: action.payload };
     default:
       return state;
+    case "CLEAR_USER_PROFILE":
+      return { ...state, userProfile: null };
   }
 }

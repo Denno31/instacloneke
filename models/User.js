@@ -15,5 +15,6 @@ const userSchema = new mongoose.Schema({
   },
   followers: [{ type: mongoose.Types.ObjectId, ref: "user" }],
   following: [{ type: mongoose.Types.ObjectId, ref: "user" }],
+  profileImage: { type: String },
 });
 mongoose.model("user", userSchema);

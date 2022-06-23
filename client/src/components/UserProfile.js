@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loadPosts } from "../actions/profile";
-import { loadUserProfile, followUser, unfollowUser } from "../actions/user";
+import {
+  loadUserProfile,
+  followUser,
+  unfollowUser,
+  clearUser,
+  clearUserProfile,
+} from "../actions/user";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 
@@ -12,18 +18,28 @@ const UserProfile = ({
   user: { userProfile, follow },
   followUser,
   unfollowUser,
+  clearUserProfile,
 }) => {
   const { userid } = useParams();
 
   useEffect(() => {
     loadUserProfile(userid);
     //checkIfFollowing();
-  }, []);
+    return () => {
+      clearUserProfile();
+    };
+  }, [userid]);
   const loadImages = () => {
     return !userProfile
       ? "Loading"
       : userProfile.posts.map((p, index) => (
-          <img src={p.photo} alt="" key={index} className="item" />
+          <img
+            style={{ objectFit: "contain" }}
+            src={p.photo}
+            alt=""
+            key={index}
+            className="item"
+          />
         ));
   };
 
@@ -41,7 +57,11 @@ const UserProfile = ({
           <img
             src="https://images.unsplash.com/photo-1591883307500-9072e99aff62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1535&q=80"
             alt=""
-            style={{ width: "160px", height: "160px", borderRadius: "80px" }}
+            style={{
+              width: "160px",
+              height: "160px",
+              borderRadius: "80px",
+            }}
           />
         </div>
         {!userProfile ? (
@@ -101,4 +121,6 @@ export default connect(mapStateToProps, {
   loadUserProfile,
   followUser,
   unfollowUser,
+  clearUser,
+  clearUserProfile,
 })(UserProfile);
