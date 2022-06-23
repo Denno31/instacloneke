@@ -76,31 +76,33 @@ function NavBar({ user: { user }, clearUser }) {
                 InstaClone
               </Link>
             </div>
-            <div className="search-bar-input">
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={handleChange}
-              />{" "}
-              {searchResults.length > 0 && (
-                <div className="search-results">
-                  <div className="">
-                    {searchResults.map((result) => (
-                      <div
-                        onClick={() => handleRedirect(result._id)}
-                        key={result._id}
-                      >
-                        {result.name}
-                      </div>
-                    ))}
+            {user && (
+              <div className="search-bar-input">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={handleChange}
+                />{" "}
+                {searchResults.length > 0 && (
+                  <div className="search-results">
+                    <div className="">
+                      {searchResults.map((result) => (
+                        <div
+                          onClick={() => handleRedirect(result._id)}
+                          key={result._id}
+                        >
+                          {result.name}
+                        </div>
+                      ))}
+                    </div>
                   </div>
+                )}
+                <div className="serch-input-icon">
+                  <i className="material-icons">search</i>
                 </div>
-              )}
-              <div className="serch-input-icon">
-                <i className="material-icons">search</i>
               </div>
-            </div>
+            )}
 
             <div className="">
               <ul id="nav-mobile" className="right">

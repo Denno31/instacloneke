@@ -6,6 +6,7 @@ import {
   UNFOLLOW_USER,
   FETCH_USERS,
   FETCH_USERS_REQUEST,
+  UPDATE_USER,
 } from "./types";
 
 export const login = (userData) => (dispatch) => {
@@ -56,7 +57,6 @@ export const followUser = (followId) => async (dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => {
-      console.log(result);
       dispatch({
         type: FOLLOW_USER,
         payload: result,
@@ -76,7 +76,6 @@ export const unfollowUser = (unfollowId) => async (dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => {
-      console.log(result);
       dispatch({
         type: UNFOLLOW_USER,
         payload: result,
@@ -107,10 +106,12 @@ export const fetchUsers = () => (dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => {
-      console.log("fetched users", result);
       dispatch({ type: FETCH_USERS, payload: result });
     })
     .catch((err) => {
       console.log(err);
     });
+};
+export const updateUser = () => (dispatch) => {
+  dispatch({ type: UPDATE_USER });
 };

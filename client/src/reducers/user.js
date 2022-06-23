@@ -5,6 +5,7 @@ import {
   FOLLOW_USER,
   UNFOLLOW_USER,
   FETCH_USERS,
+  UPDATE_USER,
 } from "../actions/types";
 const initialState = {
   user: localStorage.getItem("user")
@@ -86,5 +87,7 @@ export default function (state = initialState, action) {
       return state;
     case "CLEAR_USER_PROFILE":
       return { ...state, userProfile: null };
+    case UPDATE_USER:
+      return { ...state, user: action.payload };
   }
 }

@@ -61,9 +61,9 @@ router.get("/auth", requireLogin, async (req, res) => {
     const { email } = req.user;
     const user = await await User.findOne({ email });
     if (!user) return res.status(422).json({ msg: "user not found" });
-    const { _id, name, followers, following } = user;
+    const { _id, name, followers, following, profileImage } = user;
     res.json({
-      user: { _id, email, name, followers, following },
+      user: { _id, email, name, followers, following, profileImage },
     });
   } catch (error) {
     console.log(error);

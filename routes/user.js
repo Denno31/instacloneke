@@ -36,6 +36,23 @@ router.get("/users", requireLogin, async (req, res) => {
     console.log(error);
   }
 });
+router.put("/users/:userId", requireLogin, async function (req, res) {
+  try {
+    let user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send({ message: "A user with that id was not found" });
+    user.name = req.body.name || user.name;
+    user.profileImage = req.body.profileImage || user.profileImage;
+    let savedUser = await user.save();
+    console.log(savedUser);
+    res.send({ user: savedUser, message: "update succesfull" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ message: "an error occured" });
+  }
+});
 router.put("/follow", requireLogin, async (req, res) => {
   try {
     const follower = await User.findByIdAndUpdate(

@@ -21,10 +21,10 @@ const CreatePost = ({ history }) => {
           body: data,
         }
       );
-      console.log("after await");
+
       const jsonData = await res.json();
       setUrl(jsonData.url);
-      console.log("sadfadfadfadf adfas", url);
+
       const result = await fetch("/createpost", {
         method: "post",
         headers: {

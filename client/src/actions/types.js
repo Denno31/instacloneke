@@ -13,3 +13,4 @@ export const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 export const FETCH_USERS = "FETCH_USERS";
 export const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
+export const UPDATE_USER = "UPDATE_USER";
