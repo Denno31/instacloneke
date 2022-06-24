@@ -68,7 +68,7 @@ h2 {
   cursor: pointer;
 }
 .material-icons.favorite {
-  color: red;
+  color: red !important;
 }
 .material-icons:hover {
   cursor: pointer !important;

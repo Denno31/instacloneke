@@ -64,18 +64,40 @@ router.get("/mypost", requireLogin, async (req, res) => {
 });
 router.put("/like", requireLogin, async (req, res) => {
   try {
-    const result = await Post.findByIdAndUpdate(
-      req.body.postId,
-      {
-        $push: { likes: req.user._id },
-      },
-      { new: true }
-    )
+    const result = await Post.findById(req.body.postId)
       .populate("comments.postedBy", "_id name")
       .populate("postedBy", "-password")
       .exec();
+    //console.log(result);
+    if (!result) res.status(401).send({ message: "The post does not exist" });
 
-    res.json({ result });
+    const likeExists = result.likes.find((like) => {
+      // console.log(typeof like.toString());
+      //console.log(typeof req.user._id);
+      return like.toString() === req.user._id.toString();
+    });
+    console.log(likeExists);
+    console.log(result.likes);
+    if (likeExists) {
+      result.likes = result.likes.filter(
+        (like) => like.toString() !== req.user._id.toString()
+      );
+    } else {
+      result.likes = [...result.likes, req.user._id];
+    }
+    let savedResult = await result.save();
+    // const result = await Post.findByIdAndUpdate(
+    //   req.body.postId,
+    //   {
+    //     $push: { likes: req.user._id },
+    //   },
+    //   { new: true }
+    // )
+    //   .populate("comments.postedBy", "_id name")
+    //   .populate("postedBy", "-password")
+    //   .exec();
+
+    res.json({ result: savedResult });
   } catch (error) {
     console.log(error);
   }

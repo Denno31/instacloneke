@@ -41,6 +41,10 @@ function Home({
     //   clearUser();
     // };
   }, []);
+  const styleLikeIcon = (post) => {
+    let likeExists = post?.likes.find((l) => l === user?._id);
+    return likeExists ? "favorite" : "";
+  };
   const renderAllPosts = () => {
     return loading ? (
       <Loading />
@@ -87,8 +91,13 @@ function Home({
             <img src={p.photo} alt="" />
           </div>
           <div className="card-content">
-            <i className="material-icons favorite">favorite</i>
             <i
+              className={`material-icons ${styleLikeIcon(p)}`}
+              onClick={() => likePost(p._id)}
+            >
+              favorite
+            </i>
+            {/* <i
               className="material-icons thumbs_up"
               onClick={() => likePost(p._id)}
             >
@@ -99,7 +108,7 @@ function Home({
               onClick={() => unlikePost(p._id)}
             >
               thumb_down
-            </i>
+            </i> */}
             <h6>{p?.likes?.length} likes</h6>
             <h6>{p?.title}</h6>
             <p>{p?.body}</p>
