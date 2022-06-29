@@ -48,6 +48,20 @@ function Home({
   const renderAllPosts = () => {
     return loading ? (
       <Loading />
+    ) : allPosts.length < 1 ? (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginRight: "20px",
+        }}
+        className="home-card"
+      >
+        <div>
+          Hi, <h3>{user?.name}</h3> Welcome to InstaCloneKe. Wanna create your
+          first post? Click "Create Post" on the navigation menu.
+        </div>
+      </div>
     ) : (
       allPosts?.map((p, index) => (
         <div className="card home-card" key={index}>
