@@ -1,6 +1,6 @@
 // module.exports = {
 //   MONGOURI:
-//     "mongodb+srv://dennis:dennis123@cluster0-puyjt.mongodb.net/instaclone?retryWrites=true&w=majority",
+//     "mongodb+srv://dennis:dennis123uu88ii@cluster0-puyjt.mongodb.net/instaclone?retryWrites=true&w=majority",
 //   JWT_SECRET: "adfadfadfaedf",
 // };
 if (process.env.NODE_ENV === "production") {
@@ -8,3 +8,4 @@ if (process.env.NODE_ENV === "production") {
 } else {
   module.exports = require("./dev");
 }
+
